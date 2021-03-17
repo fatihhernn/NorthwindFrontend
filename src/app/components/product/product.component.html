@@ -1,21 +1,40 @@
-<div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
-<table *ngIf="dataLoaded==true" class="table table-hover">
-    <thead class="table-light">
-        <tr>
-            <td>Ürün Id</td>
-            <td>Ürün Adı</td>
-            <td>Kategori Id</td>
-            <td>Fiyat</td>
-            <td>Stok Adedi</td>
-        </tr>
-    </thead>
-    <tr *ngFor="let product of products" >
-        <td>{{product.productID}}</td>
-        <td>{{product.productName}}</td>
-        <td>{{product.categoryID}}</td>
-        <td>{{product.unitPrice}}</td>
-        <td>{{product.unitsInStock}}</td>
+<div
+  *ngIf="dataLoaded == false"
+  class="spinner-border text-primary"
+  role="status"
+>
+  <span class="visually-hidden">Loading...</span>
+</div>
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Ürün Ara</label>
+  <input
+    type="text"
+    [(ngModel)]="filterText"
+    class="form-control"
+    id="filterText"
+    placeholder="Arama ifadesi giriniz"
+  />
+</div>
+<div *ngIf="filterText.length>2" class="alert alert-info">
+  {{ filterText }} arıyorsunuz..
+</div>
+<table *ngIf="dataLoaded == true" class="table table-hover">
+  <thead class="table-light">
+    <tr>
+      <td>Ürün Id</td>
+      <td>Ürün Adı</td>
+      <td>Kategori Id</td>
+      <td>Fiyat</td>
+      <td>Kdv'li Fiyat</td>
+      <td>Stok Adedi</td>
     </tr>
+  </thead>
+  <tr *ngFor="let product of products">
+    <td>{{ product.productID }}</td>
+    <td>{{ product.productName | uppercase }}</td>
+    <td>{{ product.categoryID }}</td>
+    <td>{{ product.unitPrice | currency }}</td>
+    <td>{{ product.unitPrice | vatAdded: 10 | currency }}</td>
+    <td>{{ product.unitsInStock }}</td>
+  </tr>
 </table>
