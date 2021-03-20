@@ -16,12 +16,12 @@ export class CartService {
 
   addToCart(product:Product){
     //bu rklrfiğim şey sepette var mı ?
-    let item=CartItems.find(c=>c.pruduct.productID===product.productID)
+    let item=CartItems.find(c=>c.product.productID===product.productID)
     if (item) {
       item.quantity+=1
     }else{
       let cartItem=new CartItem()
-      cartItem.pruduct=product
+      cartItem.product=product
       cartItem.quantity=1
       CartItems.push(cartItem)
     }
@@ -30,5 +30,10 @@ export class CartService {
 
   list(){
     return CartItems;
+  }
+
+  removeFromCart(product:Product){
+    let item:any=CartItems.find(c=>c.product.productID===product.productID);
+    CartItems.splice(CartItems.indexOf(item),1)
   }
 }

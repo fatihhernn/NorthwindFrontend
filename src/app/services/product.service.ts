@@ -14,7 +14,6 @@ export class ProductService {
   //bunu injecte edebilmek için app.modulede ekle
   constructor(private httpClient: HttpClient) {}
 
-  
   getProducts():Observable<ListResponseModel<Product>> {
     let newPath=this.apiUrl+"products/getall"
     return this.httpClient.get<ListResponseModel<Product>>(newPath);
